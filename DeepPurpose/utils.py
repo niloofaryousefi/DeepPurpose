@@ -652,10 +652,6 @@ def encode_drug(df_data, drug_encoding, column_name = 'SMILES', save_column_name
 		df_data[save_column_name] = df_data[column_name]
 	elif drug_encoding in ['DGL_GIN_AttrMasking', 'DGL_GIN_ContextPred']:
 		df_data[save_column_name] = df_data[column_name]
-	elif drug_encoding == 'GCNN':
-		unique = pd.Series(df_data[column_name].unique()).apply(smiles2vec)
-	        unique_dict = dict(zip(df_data[column_name].unique(), unique))
-	        df_data[save_column_name] = [unique_dict[i] for i in df_data[column_name]]
 	else:
 		raise AttributeError("Please use the correct drug encoding available!")
 	return df_data
