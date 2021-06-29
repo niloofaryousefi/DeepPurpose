@@ -911,9 +911,9 @@ class data_process_loader(data.Dataset):
 			v_d = drug_2_embed(v_d)
 		elif self.config['drug_encoding'] in ['DGL_GCN', 'DGL_NeuralFP', 'DGL_GIN_AttrMasking', 'DGL_GIN_ContextPred', 'DGL_AttentiveFP']:
 			v_d = self.fc(smiles = v_d, node_featurizer = self.node_featurizer, edge_featurizer = self.edge_featurizer)
-		v_p = self.df.iloc[index]['target_encoding']
 		elif self.config['drug_encoding'] == 'GCNN':
 			v_d = self.fc(smiles = v_d)
+		v_p = self.df.iloc[index]['target_encoding']
 		if self.config['target_encoding'] == 'CNN' or self.config['target_encoding'] == 'CNN_RNN':
 			v_p = protein_2_embed(v_p)
 		y = self.labels[index]
