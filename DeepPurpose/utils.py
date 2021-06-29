@@ -900,6 +900,8 @@ class data_process_loader(data.Dataset):
 			self.edge_featurizer = PretrainBondFeaturizer()
 			from functools import partial
 			self.fc = partial(smiles_to_bigraph, add_self_loop=True)
+		elif self.config['drug_encoding'] == 'GCNN':
+			self.fc = smiles2vec
 
 	def __len__(self):
 		'Denotes the total number of samples'
@@ -914,6 +916,8 @@ class data_process_loader(data.Dataset):
 		elif self.config['drug_encoding'] in ['DGL_GCN', 'DGL_NeuralFP', 'DGL_GIN_AttrMasking', 'DGL_GIN_ContextPred', 'DGL_AttentiveFP']:
 			v_d = self.fc(smiles = v_d, node_featurizer = self.node_featurizer, edge_featurizer = self.edge_featurizer)
 		v_p = self.df.iloc[index]['target_encoding']
+		elif self.config['drug_encoding'] == 'GCNN':
+			v_d = self.fc(smiles = v_d)
 		if self.config['target_encoding'] == 'CNN' or self.config['target_encoding'] == 'CNN_RNN':
 			v_p = protein_2_embed(v_p)
 		y = self.labels[index]
