@@ -1,3 +1,12 @@
+from __future__ import division
+from __future__ import unicode_literals
+import numpy as np
+from rdkit import Chem
+import multiprocessing
+import logging
+import torch
+from torch_geometric.data import Data
+
 import numpy as np
 import pandas as pd
 from rdkit import Chem, DataStructs
@@ -24,15 +33,6 @@ from zipfile import ZipFile
 import os
 import sys
 import pathlib
-
-from __future__ import division
-from __future__ import unicode_literals
-import numpy as np
-from rdkit import Chem
-import multiprocessing
-import logging
-import torch
-from torch_geometric.data import Data
 
 this_dir = str(pathlib.Path(__file__).parent.absolute())
 
