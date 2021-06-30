@@ -25,6 +25,15 @@ import os
 import sys
 import pathlib
 
+from __future__ import division
+from __future__ import unicode_literals
+import numpy as np
+from rdkit import Chem
+import multiprocessing
+import logging
+import torch
+from torch_geometric.data import Data
+
 this_dir = str(pathlib.Path(__file__).parent.absolute())
 
 MAX_ATOM = 400
@@ -303,15 +312,6 @@ def smiles2mpnnfeature(smiles):
 	# print("bond size", fbonds.shape[0], bgraph.shape[0])
 	shape_tensor = torch.Tensor([Natom, Nbond]).view(1,-1)
 	return [fatoms.float(), fbonds.float(), agraph.float(), bgraph.float(), shape_tensor.float()]
-
-from __future__ import division
-from __future__ import unicode_literals
-import numpy as np
-from rdkit import Chem
-import multiprocessing
-import logging
-import torch
-from torch_geometric.data import Data
  
 # following code was borrowed from deepchem
 # https://raw.githubusercontent.com/deepchem/deepchem/master/deepchem/feat/graph_features.py
